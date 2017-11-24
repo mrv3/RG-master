@@ -12,9 +12,9 @@ class TabAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragme
 
     override fun getItem(position: Int): Fragment? = when (position) {
 
-            0 -> ThirdFragment3();
-            1 -> SampleFragment();
-            2 -> SampleFragment2();
+            0 -> frag_one();
+            1 -> frag_two();
+            2 -> frag_three();
 
         else -> {SampleFragment3();
         }

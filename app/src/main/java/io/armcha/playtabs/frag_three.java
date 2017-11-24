@@ -1,19 +1,14 @@
 package io.armcha.playtabs;
 
 //import android.app.Fragment;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v4.app.Fragment;
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,7 +18,7 @@ import android.widget.ProgressBar;
  * Created by Victory on 5/22/2017.
  */
 
-public class ThirdFragment3 extends Fragment {
+public class frag_three extends Fragment {
 
     View myview;
     private static WebView mWebView;
@@ -33,20 +28,21 @@ public class ThirdFragment3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myview = inflater.inflate(R.layout.fragment_sample4, container, false);
+        myview = inflater.inflate(R.layout.frag_three, container, false);
 
-        mWebView = (WebView) myview.findViewById(R.id.services_main_webview);
+        mWebView = (WebView) myview.findViewById(R.id.weddings_main_webview);
 
-        swipeLayout = (SwipeRefreshLayout) myview.findViewById(R.id.services_swipe_container);
+        swipeLayout = (SwipeRefreshLayout) myview.findViewById(R.id.weddings_swipe_container);
 
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
-        mWebView.loadUrl("https://www.ramiiegraphy.com/copy-of-faces");
         swipeLayout.setRefreshing(true);
 
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mWebView.loadUrl("https://www.ramiiegraphy.com/copy-of-faces");
+                mWebView.loadUrl("https://www.ramiiegraphy.com/copy-of-portraits");
                 //your method to refresh content
             }
         });
@@ -54,18 +50,22 @@ public class ThirdFragment3 extends Fragment {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView web, String url) {
+                mWebView.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementsByTagName('header')[0];"
+                        + "head.parentNode.removeChild(head);" +
+                        "})()");
                 swipeLayout.setRefreshing(false);
                 if (swipeLayout.isRefreshing()) {
                     swipeLayout.setRefreshing(false);
                 }
             }
         });
+        mWebView.loadUrl("https://www.ramiiegraphy.com/copy-of-portraits");
 
 
         // Enable Javascript
 
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+
 
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
